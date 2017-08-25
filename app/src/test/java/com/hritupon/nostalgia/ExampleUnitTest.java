@@ -1,4 +1,4 @@
-package com.nostalgia.hritupon.nostalgia;
+package com.hritupon.nostalgia;
 
 import org.junit.Test;
 

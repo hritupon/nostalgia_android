@@ -1,4 +1,4 @@
-package com.nostalgia.hritupon.nostalgia;
+package com.hritupon.nostalgia;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class SpeechRecord extends AppCompatActivity {
 
     private Button openMic;
     private TextView showVoiceText;
@@ -61,4 +61,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

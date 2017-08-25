@@ -1,4 +1,4 @@
-package com.nostalgia.hritupon.nostalgia;
+package com.hritupon.nostalgia;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.nostalgia.hritupon.nostalgia", appContext.getPackageName());
+        assertEquals("com.hritupon.nostalgia", appContext.getPackageName());
     }
 }
