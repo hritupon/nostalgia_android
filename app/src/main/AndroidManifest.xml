@@ -17,9 +17,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SpeechRecord"
+            android:name=".SpeechRecordActivity"
             android:label="@string/title_activity_speech_record"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".StoriesActivity"></activity>
     </application>
 
 </manifest>

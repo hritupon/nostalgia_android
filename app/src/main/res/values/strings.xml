@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Nostalgia</string>
-    <string name="text_view_msg">Show voice output!</string>
+    <string name="text_view_msg">Your Story Here!</string>
     <string name="speaker_button_text">Speak</string>
+    <string name="save_button_text">Save</string>
+    <string name="logout_button_text">Logout</string>
+    <string name="myStories_button_text">My Stories</string>
     <string name="title_activity_speech_record">SpeechRecord</string>
 </resources>
