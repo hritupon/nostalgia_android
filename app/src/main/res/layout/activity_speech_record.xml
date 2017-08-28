@@ -13,15 +13,17 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/speakButton"
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_weight="0.12"
         android:backgroundTint="?attr/colorBackgroundFloating"
+        android:src="@android:drawable/ic_btn_speak_now"
         android:text="@string/speaker_button_text"
-        tools:elevation="24dp"
-        android:layout_weight="0.17" />
+        tools:background="@android:drawable/ic_btn_speak_now"
+        tools:elevation="24dp" />
 
         <Space
             android:layout_width="1dp"
@@ -54,6 +56,7 @@
                 android:id="@+id/myStoriesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorBackgroundFloating"
                 android:text="@string/myStories_button_text"
                 tools:backgroundTint="?attr/colorBackgroundFloating" />
 
@@ -61,6 +64,7 @@
                 android:id="@+id/logoutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorBackgroundFloating"
                 android:text="@string/logout_button_text"
                 tools:backgroundTint="?attr/colorBackgroundFloating" />
 

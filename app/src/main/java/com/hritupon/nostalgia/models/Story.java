@@ -9,6 +9,7 @@ public class Story {
     String description;
     String timeStamp;
     String userId;
+    String imageId;
 
     public Story(){}
     public Story(String description, String timeStamp, String userId) {
@@ -16,7 +17,12 @@ public class Story {
         this.timeStamp = timeStamp;
         this.userId = userId;
     }
-
+    public Story(String description, String timeStamp, String userId, String imageId) {
+        this.description = description;
+        this.timeStamp = timeStamp;
+        this.userId = userId;
+        this.imageId = imageId;
+    }
     public String getDescription() {
         return description;
     }
@@ -47,5 +53,13 @@ public class Story {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 }

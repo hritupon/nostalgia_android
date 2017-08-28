@@ -1,4 +1,4 @@
-package com.hritupon.nostalgia.Services;
+package com.hritupon.nostalgia.services;
 
 import com.hritupon.nostalgia.models.Story;
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hritupon.nostalgia.Services.DatabaseService;
-import com.hritupon.nostalgia.Services.impl.FirebaseService;
+import com.hritupon.nostalgia.commands.Command;
+import com.hritupon.nostalgia.commands.CommandUtil;
 import com.hritupon.nostalgia.models.Story;
+import com.hritupon.nostalgia.services.DatabaseService;
+import com.hritupon.nostalgia.services.impl.FirebaseService;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -24,7 +27,7 @@ import static com.hritupon.nostalgia.util.RequestCodes.REQUEST_CODE_SPEECH_OUTPU
 
 public class SpeechRecordActivity extends AppCompatActivity {
 
-    private Button openMic;
+    private FloatingActionButton openMic;
     private Button logoutButton;
     private Button saveButton;
     private Button storiesButton;
@@ -47,7 +50,7 @@ public class SpeechRecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_record);
 
-        openMic = (Button) findViewById(R.id.speakButton);
+        openMic = (FloatingActionButton) findViewById(R.id.speakButton);
         showVoiceText = (TextView) findViewById(R.id.showVoiceOutput);
         saveButton = (Button)findViewById(R.id.saveButton);
         storiesButton = (Button)findViewById(R.id.myStoriesButton);
@@ -127,6 +130,8 @@ public class SpeechRecordActivity extends AppCompatActivity {
             //@Todo
             //cassandraService.save(story);
 
+        }else{
+            Toast.makeText(SpeechRecordActivity.this,"Sorry no story found.Try again.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -137,7 +142,17 @@ public class SpeechRecordActivity extends AppCompatActivity {
             case REQUEST_CODE_SPEECH_OUTPUT:{
                 if(resultCode == RESULT_OK && null != data){
                     ArrayList<String> voiceInText  = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    showVoiceText.setText(voiceInText.get(0));
+                    String recognizedSpeech = voiceInText.get(0);
+                    if(null != recognizedSpeech && !recognizedSpeech.isEmpty()){
+                        recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() + recognizedSpeech.substring(1);
+                    }
+                    showVoiceText.setText(recognizedSpeech);
+                    //if it is a recognized command automatically save
+                    Command command = CommandUtil.getCommand(SpeechRecordActivity.this,recognizedSpeech, mAuth, firebaseService);
+                    if(command!=null){
+                        command.execute();
+                        startActivity(new Intent(SpeechRecordActivity.this, StoriesActivity.class));
+                    }
                 }
                 break;
             }

@@ -1,8 +1,8 @@
-package com.hritupon.nostalgia.Services.impl;
+package com.hritupon.nostalgia.services.impl;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hritupon.nostalgia.Services.DatabaseService;
+import com.hritupon.nostalgia.services.DatabaseService;
 import com.hritupon.nostalgia.models.Story;
 
 /**

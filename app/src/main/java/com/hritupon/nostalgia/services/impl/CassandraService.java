@@ -1,6 +1,6 @@
-package com.hritupon.nostalgia.Services.impl;
+package com.hritupon.nostalgia.services.impl;
 
-import com.hritupon.nostalgia.Services.DatabaseService;
+import com.hritupon.nostalgia.services.DatabaseService;
 import com.hritupon.nostalgia.models.Story;
 
 /**

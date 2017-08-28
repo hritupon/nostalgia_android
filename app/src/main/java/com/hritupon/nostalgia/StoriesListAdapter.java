@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hritupon.nostalgia.models.Story;
+import com.hritupon.nostalgia.services.ImageService;
+import com.hritupon.nostalgia.services.impl.ImageServiceImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,15 +24,11 @@ import java.util.List;
 public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.ViewHolder>{
     private Activity context;
     private List<Story> storyList;
-    private int[] images = {
-            R.drawable.breakfast,
-            R.drawable.morning,
-            R.drawable.movie,
-            R.drawable.tea,
-    };
+    private ImageService imageService;
 
     public StoriesListAdapter(StoriesActivity storiesActivity, List<Story> storyList) {
         this.storyList=storyList;
+        this.imageService = new ImageServiceImpl();
     }
 
 
@@ -72,8 +70,7 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
         Story story = storyList.get(position);
         viewHolder.textViewDescription.setText(story.getDescription());
         viewHolder.textViewTimestamp.setText(getFormattedDate(story.getTimeStamp()));
-        int randomImageNumber =(int) (Math.random()+position)%4;
-        viewHolder.itemImage.setImageResource(images[randomImageNumber]);
+        viewHolder.itemImage.setImageResource(imageService.getImage(story,position));
     }
 
     @Override
@@ -86,5 +83,7 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEE dd MMM yyyy hh:mm:ss aaa");
         return simpleDateformat.format(date);
     }
+
+
 
 }
