@@ -1,5 +1,6 @@
 package com.hritupon.nostalgia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -82,6 +83,7 @@ public class StoriesActivity extends AppCompatActivity {
                 break;
             case R.id.stories_activity_menu_calendar_view:{
                 Toast.makeText(StoriesActivity.this,"Switch to calendar view", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(StoriesActivity.this, CalendarActivity.class));
             }
             default:
                 return super.onOptionsItemSelected(item);
