@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hritupon.nostalgia.commands.Command;
 import com.hritupon.nostalgia.commands.CommandUtil;
@@ -34,8 +35,9 @@ public class SpeechRecordActivity extends AppCompatActivity {
     private TextView showVoiceText;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-    FirebaseDatabase firebaseDatabase;
+    DatabaseReference storiesDbRef;
     private DatabaseService firebaseService;
+    private static final String STORIES = "Stories";
 
     //private DatabaseService cassandraService;
 
@@ -56,8 +58,11 @@ public class SpeechRecordActivity extends AppCompatActivity {
         storiesButton = (Button)findViewById(R.id.myStoriesButton);
         logoutButton = (Button) findViewById(R.id.logoutButton);
         mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseService = new FirebaseService(firebaseDatabase);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        storiesDbRef = FirebaseDatabase.getInstance().getReference(STORIES);
+        storiesDbRef.keepSynced(true);
+        firebaseService = new FirebaseService(storiesDbRef);
+
         //cassandraService = new CassandraService();
 
 

@@ -1,9 +1,8 @@
 package com.hritupon.nostalgia.services.impl;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.hritupon.nostalgia.services.DatabaseService;
 import com.hritupon.nostalgia.models.Story;
+import com.hritupon.nostalgia.services.DatabaseService;
 
 /**
  * Created by hritupon on 26/8/17.
@@ -11,13 +10,11 @@ import com.hritupon.nostalgia.models.Story;
 
 public class FirebaseService implements DatabaseService{
 
-    private static final String STORIES = "Stories";
-    FirebaseDatabase database;
+
     DatabaseReference storiesRef;
 
-    public FirebaseService(FirebaseDatabase database){
-        this.database = database;
-        storiesRef = database.getReference(STORIES);
+    public FirebaseService(DatabaseReference storyRef){
+        this.storiesRef = storyRef;
     }
     public boolean save(Story story){
         String userId = story.getUserId();
