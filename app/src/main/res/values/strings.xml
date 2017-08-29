@@ -5,5 +5,8 @@
     <string name="save_button_text">Save</string>
     <string name="logout_button_text">Logout</string>
     <string name="myStories_button_text">My Stories</string>
-    <string name="title_activity_speech_record">SpeechRecord</string>
+    <string name="title_activity_speech_record">Record Your Story</string>
+    <string name="menu_item_logout">Logout</string>
+    <string name="my_stories_title">My Stories</string>
+    <string name="stories_activity_menu_calnerdar_view">Calnerdar View</string>
 </resources>

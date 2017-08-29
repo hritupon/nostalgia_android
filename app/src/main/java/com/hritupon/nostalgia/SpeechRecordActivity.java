@@ -7,6 +7,10 @@ import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,10 +33,10 @@ import static com.hritupon.nostalgia.util.RequestCodes.REQUEST_CODE_SPEECH_OUTPU
 public class SpeechRecordActivity extends AppCompatActivity {
 
     private FloatingActionButton openMic;
-    private Button logoutButton;
     private Button saveButton;
     private Button storiesButton;
     private TextView showVoiceText;
+    private Toolbar mToolbar;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference storiesDbRef;
@@ -51,12 +55,12 @@ public class SpeechRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_record);
-
+        mToolbar = (Toolbar)findViewById(R.id.speech_record_activity_toolbar);
+        setSupportActionBar(mToolbar);
         openMic = (FloatingActionButton) findViewById(R.id.speakButton);
         showVoiceText = (TextView) findViewById(R.id.showVoiceOutput);
         saveButton = (Button)findViewById(R.id.saveButton);
         storiesButton = (Button)findViewById(R.id.myStoriesButton);
-        logoutButton = (Button) findViewById(R.id.logoutButton);
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         storiesDbRef = FirebaseDatabase.getInstance().getReference(STORIES);
@@ -95,21 +99,29 @@ public class SpeechRecordActivity extends AppCompatActivity {
                 startActivity(new Intent(SpeechRecordActivity.this, StoriesActivity.class));
             }
         });
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-            }
-        });
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.speech_record_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.speech_record_activity_menu_logout){
+            mAuth.signOut();
+        }
+        return true;
     }
 
     private void btnToOpenMic(){
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi...Speak now...");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "...Speak now...");
 
         try{
             startActivityForResult(intent, REQUEST_CODE_SPEECH_OUTPUT);

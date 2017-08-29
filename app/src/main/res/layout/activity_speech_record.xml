@@ -1,48 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top_rel_layout"
     android:layout_width="fill_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     tools:context="com.hritupon.nostalgia.SpeechRecordActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/speech_record_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
         <View
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/speakButton"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="0.12"
+            android:backgroundTint="?attr/colorBackgroundFloating"
+            android:src="@android:drawable/ic_btn_speak_now"
+            android:text="@string/speaker_button_text"
+            tools:background="@android:drawable/ic_btn_speak_now"
+            tools:elevation="24dp"
+            />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/speakButton"
-        android:layout_width="56dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_weight="0.12"
-        android:backgroundTint="?attr/colorBackgroundFloating"
-        android:src="@android:drawable/ic_btn_speak_now"
-        android:text="@string/speaker_button_text"
-        tools:background="@android:drawable/ic_btn_speak_now"
-        tools:elevation="24dp" />
+            <Space
+                android:layout_width="1dp"
+                android:layout_height="30dp"/>
 
-        <Space
-            android:layout_width="1dp"
-            android:layout_height="30dp"/>
+        <EditText
+            android:id="@+id/showVoiceOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_view_msg"
+            android:textSize="31sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/showVoiceOutput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_view_msg"
-        android:textSize="31sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorBackgroundFloating"
-        android:text="@string/save_button_text" />
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/colorBackgroundFloating"
+            android:text="@string/save_button_text"
+            android:textAllCaps="false"/>
         <View
             android:layout_width="1dp"
             android:layout_height="0dp"
@@ -58,17 +77,10 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorBackgroundFloating"
                 android:text="@string/myStories_button_text"
-                tools:backgroundTint="?attr/colorBackgroundFloating" />
-
-            <Button
-                android:id="@+id/logoutButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="?attr/colorBackgroundFloating"
-                android:text="@string/logout_button_text"
-                tools:backgroundTint="?attr/colorBackgroundFloating" />
-
+                tools:backgroundTint="?attr/colorBackgroundFloating"
+                android:textAllCaps="false"/>
         </LinearLayout>
+    </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

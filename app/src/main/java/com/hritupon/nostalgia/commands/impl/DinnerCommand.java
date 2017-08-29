@@ -69,7 +69,7 @@ public class DinnerCommand implements Command {
 
     public void execute(){
         String timeStamp = System.currentTimeMillis()+"";
-        String description = "You had lunch at "+getFormattedDate(timeStamp);
+        String description = "You had Dinner at "+getFormattedDate(timeStamp);
         String userId = mAuth.getCurrentUser().getUid();
         Story story = new Story(description,timeStamp, userId, IMAGE_ID);
 
