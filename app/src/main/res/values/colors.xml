@@ -8,4 +8,11 @@
     <color name="card_backgound">#FAFAFAFA</color>
     <color name="card_shadow">#8c666666</color>
     <color name="card_date">#aed3f4</color>
+    <color name="primary">#2d2d2d</color>
+    <color name="secondary">#FF4081</color>
+    <color name="accent">#33b5e5</color>
+    <color name="divider">#CCC</color>
+    <color name="icons">#FFF</color>
+    <color name="item_background">#FFF</color>
+    <color name="light_grey_background">#d8e5e5</color>
 </resources>
