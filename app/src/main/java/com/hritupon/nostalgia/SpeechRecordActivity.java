@@ -135,7 +135,7 @@ public class SpeechRecordActivity extends AppCompatActivity {
         String description = showVoiceText.getText().toString().trim();
         if(null != description && !description.isEmpty()){
             String userId = mAuth.getCurrentUser().getUid();
-            String timeStamp = System.currentTimeMillis()+"";
+            long timeStamp = System.currentTimeMillis();
             Story story = new Story(description,timeStamp, userId);
 
             boolean isSaveSuccessful = firebaseService.save(story);

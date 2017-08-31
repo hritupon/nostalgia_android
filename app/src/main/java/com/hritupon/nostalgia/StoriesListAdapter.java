@@ -78,8 +78,8 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
         return storyList.size();
     }
 
-    private String getFormattedDate(String timeStamp){
-        Date date = new Date(Long.parseLong(timeStamp));
+    private String getFormattedDate(long timeStamp){
+        Date date = new Date(timeStamp);
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEE dd MMM yyyy hh:mm:ss aaa");
         return simpleDateformat.format(date);
     }

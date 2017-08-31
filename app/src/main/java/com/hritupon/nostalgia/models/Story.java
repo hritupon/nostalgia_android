@@ -7,17 +7,17 @@ package com.hritupon.nostalgia.models;
 public class Story {
     String id;
     String description;
-    String timeStamp;
+    long timeStamp;
     String userId;
     String imageId;
 
     public Story(){}
-    public Story(String description, String timeStamp, String userId) {
+    public Story(String description, long timeStamp, String userId) {
         this.description = description;
         this.timeStamp = timeStamp;
         this.userId = userId;
     }
-    public Story(String description, String timeStamp, String userId, String imageId) {
+    public Story(String description, long timeStamp, String userId, String imageId) {
         this.description = description;
         this.timeStamp = timeStamp;
         this.userId = userId;
@@ -31,11 +31,11 @@ public class Story {
         this.description = description;
     }
 
-    public String getTimeStamp() {
+    public long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(String timeStamp) {
+    public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
     }
 

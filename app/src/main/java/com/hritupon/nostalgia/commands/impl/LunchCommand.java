@@ -66,7 +66,7 @@ public class LunchCommand implements Command {
     }
 
     public void execute(){
-        String timeStamp = System.currentTimeMillis()+"";
+        long timeStamp = System.currentTimeMillis();
         String description = "You had lunch at "+getFormattedDate(timeStamp);
         String userId = mAuth.getCurrentUser().getUid();
         Story story = new Story(description,timeStamp, userId, IMAGE_ID);
@@ -80,8 +80,8 @@ public class LunchCommand implements Command {
             //@Todo
             //cassandraService.save(story);
     }
-    private String getFormattedDate(String timeStamp){
-        Date date = new Date(Long.parseLong(timeStamp));
+    private String getFormattedDate(long timeStamp){
+        Date date = new Date(timeStamp);
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("hh:mm:ss aaa EEE dd MMM yyyy");
         return simpleDateformat.format(date);
     }

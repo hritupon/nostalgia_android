@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hritupon.nostalgia.models.Story;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
     private static final int TOTAL_ITEM_EACH_LOAD = 5;
     private List<Story> stories = new ArrayList<>();
     private int currentPage = 0;
-    private String oldestStoryId ="";
+    private long oldestStoryId;
 
     private DayPickerView calendarView;
     private TextView selectedDateTextView;
@@ -70,9 +71,80 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
 
     @Override
     public void onDayOfMonthSelected(int year, int month, int day) {
-        String dateString = day+"/"+month+"/"+year;
+        final String dateString = day+"/"+month+"/"+year;
         Toast.makeText(CalendarActivity.this,"Showing Your Stories of "+dateString,Toast.LENGTH_SHORT).show();
+        stories.clear();
+        final long startOfDay=getStartOfDay(year,month,day);
+        final long endOfDay=getEndOfDay(year,month,day);
+        Query query = FirebaseDatabase.getInstance().getReference(STORIES).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .startAt(startOfDay)
+                .endAt(endOfDay)
+                .orderByChild("timeStamp");
+        query.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Story> tempStories=new ArrayList<Story>();
+                for (DataSnapshot storySnapshot : dataSnapshot.getChildren()) {
+                    Story story =storySnapshot.getValue(Story.class);
+                    if(story.getTimeStamp()>=startOfDay && story.getTimeStamp()<=endOfDay){
+                        tempStories.add(story);
+                    }
+
+                }
+                if(tempStories.size()==0){
+                    Toast.makeText(CalendarActivity.this, "You added no stories on "+dateString, Toast.LENGTH_SHORT).show();
+                }else{
+                    Collections.reverse(tempStories);
+                    stories.addAll(tempStories);
+                    if (null != adapter) adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         //selectedDateTextView.setText(dateString);
+    }
+
+    public long getEndOfDay(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTime().getTime();
+    }
+
+    public long getStartOfDay(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime().getTime();
+    }
+
+    public long getEndOfDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTime().getTime();
+    }
+
+    public long getStartOfDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime().getTime();
     }
 
     @Override
@@ -80,14 +152,19 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
 
     }
     private void loadData() {
+
+        long startOfDay=getStartOfDay();
+        long endOfDay=getEndOfDay();
+
         Query query=null;
         if(currentPage==0) {
             query = FirebaseDatabase.getInstance().getReference(STORIES).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .limitToLast(TOTAL_ITEM_EACH_LOAD)
+                    .startAt(startOfDay)
+                    .endAt(endOfDay)
                     .orderByChild("timeStamp");
         }else{
             query = FirebaseDatabase.getInstance().getReference(STORIES).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .limitToLast(TOTAL_ITEM_EACH_LOAD)
+                    .startAt(startOfDay)
                     .endAt(oldestStoryId)
                     .orderByChild("timeStamp");
 
@@ -99,7 +176,7 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
                     Toast.makeText(CalendarActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
                     currentPage--;
                 }
-                String currentOldestStoryId=oldestStoryId;
+                long currentOldestStoryId=oldestStoryId;
                 List<Story> tempStories=new ArrayList<Story>();
                 for (DataSnapshot storySnapshot : dataSnapshot.getChildren()) {
                     Story story =storySnapshot.getValue(Story.class);
@@ -113,7 +190,7 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
                 }else {
                     Collections.reverse(tempStories);
                     oldestStoryId = tempStories.get(tempStories.size()-1).getTimeStamp();
-                    if(currentOldestStoryId.equals(oldestStoryId)){
+                    if(currentOldestStoryId==oldestStoryId){
                         Toast.makeText(CalendarActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
                         //currentPage--;
                     }else {

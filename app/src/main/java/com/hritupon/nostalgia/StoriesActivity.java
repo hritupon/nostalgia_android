@@ -36,7 +36,7 @@ public class StoriesActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     List<Story> storyList = new ArrayList<>();;
     StoriesListAdapter adapter;
-    String oldestStoryId ="";
+    long oldestStoryId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +111,7 @@ public class StoriesActivity extends AppCompatActivity {
                             Toast.makeText(StoriesActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
                             currentPage--;
                         }
-                        String currentOldestStoryId=oldestStoryId;
+                        long currentOldestStoryId=oldestStoryId;
                         List<Story> tempStories=new ArrayList<Story>();
                         for (DataSnapshot storySnapshot : dataSnapshot.getChildren()) {
                             Story story =storySnapshot.getValue(Story.class);
@@ -125,7 +125,7 @@ public class StoriesActivity extends AppCompatActivity {
                         }else {
                             Collections.reverse(tempStories);
                             oldestStoryId = tempStories.get(tempStories.size()-1).getTimeStamp();
-                            if(currentOldestStoryId.equals(oldestStoryId)){
+                            if(currentOldestStoryId==oldestStoryId){
                                 Toast.makeText(StoriesActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
                                 //currentPage--;
                             }else {

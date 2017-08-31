@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.hritupon.nostalgia.models.Story;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,12 +33,12 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
     /** References to the views for each data item **/
     public class DateWiseListItemHolder extends RecyclerView.ViewHolder{
         public TextView titleView;
-        public TextView authorView;
+        public TextView timeStampView;
         RelativeLayout rootView;
         public DateWiseListItemHolder(View v) {
             super(v);
             titleView = (TextView) v.findViewById(R.id.title);
-            authorView = (TextView) v.findViewById(R.id.author);
+            timeStampView = (TextView) v.findViewById(R.id.author);
             rootView=(RelativeLayout)v.findViewById(R.id.date_wise_item_root_view);
 
         }
@@ -67,7 +69,7 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
         Story story = items.get(position);
         DateWiseListItemHolder viewHolder = (DateWiseListItemHolder) holder;
         viewHolder.titleView.setText(story.getDescription());
-        viewHolder.authorView.setText(story.getTimeStamp());
+        viewHolder.timeStampView.setText(getFormattedDate(story.getTimeStamp()));
         if(alternateRow){
             viewHolder.rootView.setBackgroundColor(Color.parseColor("#d8e5e5"));
         }else{
@@ -76,5 +78,9 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
         alternateRow=!alternateRow;
     }
 
-
+    private String getFormattedDate(long timeStamp){
+        Date date = new Date(timeStamp);
+        SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEE dd MMM yyyy hh:mm:ss aaa");
+        return simpleDateformat.format(date);
+    }
 }
