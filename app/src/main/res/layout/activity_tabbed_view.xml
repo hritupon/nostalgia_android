@@ -35,4 +35,14 @@
         android:id="@+id/viewPager">
     </android.support.v4.view.ViewPager>
     </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/floating_button_margin"
+        android:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        android:src="@drawable/ic_add_white_24dp"/>
 </RelativeLayout>
