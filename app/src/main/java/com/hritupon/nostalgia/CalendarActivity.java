@@ -1,9 +1,13 @@
 package com.hritupon.nostalgia;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +29,7 @@ import me.nlmartian.silkcal.DatePickerController;
 import me.nlmartian.silkcal.DayPickerView;
 import me.nlmartian.silkcal.SimpleMonthAdapter;
 
-public class CalendarActivity extends AppCompatActivity implements DatePickerController {
+public class CalendarActivity extends Fragment implements DatePickerController {
 
     public static final String STORIES = "Stories";
     private static final int TOTAL_ITEM_EACH_LOAD = 5;
@@ -38,17 +42,17 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
     private RecyclerView recyclerView;
     private DateWiseListItemAdapter adapter;
     private ProgressBar mProgressBar;
+    View view;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
-        //selectedDateTextView = (TextView)findViewById(R.id.selected_calendar_date_id);
-        calendarView = (DayPickerView) findViewById(R.id.calendar_view);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view =inflater.inflate(R.layout.activity_calendar, container, false);
+        calendarView = (DayPickerView)view.findViewById(R.id.calendar_view);
         calendarView.setController(this);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressbarDateItemList);
-        recyclerView = (RecyclerView) findViewById(R.id.date_story_list_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressbarDateItemList);
+        recyclerView = (RecyclerView) view.findViewById(R.id.date_story_list_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         adapter = new DateWiseListItemAdapter(this.stories);
@@ -59,6 +63,14 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
                 loadMoreData();
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onStart()  {
+        super.onStart();
+        //selectedDateTextView = (TextView)findViewById(R.id.selected_calendar_date_id);
+
         loadData();
 
     }
@@ -72,7 +84,7 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
     @Override
     public void onDayOfMonthSelected(int year, int month, int day) {
         final String dateString = day+"/"+month+"/"+year;
-        Toast.makeText(CalendarActivity.this,"Showing Your Stories of "+dateString,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"Showing Your Stories of "+dateString,Toast.LENGTH_SHORT).show();
         stories.clear();
         final long startOfDay=getStartOfDay(year,month,day);
         final long endOfDay=getEndOfDay(year,month,day);
@@ -93,7 +105,7 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
 
                 }
                 if(tempStories.size()==0){
-                    Toast.makeText(CalendarActivity.this, "You added no stories on "+dateString, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "You added no stories on "+dateString, Toast.LENGTH_SHORT).show();
                 }else{
                     Collections.reverse(tempStories);
                     stories.addAll(tempStories);
@@ -173,7 +185,7 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.hasChildren()){
-                    Toast.makeText(CalendarActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "No more Stories", Toast.LENGTH_SHORT).show();
                     currentPage--;
                 }
                 long currentOldestStoryId=oldestStoryId;
@@ -186,12 +198,12 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
                     if(tempStories.size()>0)tempStories.remove(tempStories.size()-1);
                 }
                 if(tempStories.size()==0){
-                    Toast.makeText(CalendarActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "No more Stories", Toast.LENGTH_SHORT).show();
                 }else {
                     Collections.reverse(tempStories);
                     oldestStoryId = tempStories.get(tempStories.size()-1).getTimeStamp();
                     if(currentOldestStoryId==oldestStoryId){
-                        Toast.makeText(CalendarActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "No more Stories", Toast.LENGTH_SHORT).show();
                         //currentPage--;
                     }else {
                         stories.addAll(tempStories);

@@ -90,13 +90,13 @@ public class SpeechRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveData();
-                startActivity(new Intent(SpeechRecordActivity.this, StoriesActivity.class));
+                startActivity(new Intent(SpeechRecordActivity.this, TabbedViewActivity.class));
             }
         });
         storiesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SpeechRecordActivity.this, StoriesActivity.class));
+                startActivity(new Intent(SpeechRecordActivity.this, TabbedViewActivity.class));
             }
         });
 

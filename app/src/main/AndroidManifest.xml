@@ -24,7 +24,8 @@
             android:name=".StoriesActivity"
             android:label="@string/my_stories_title"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".CalendarActivity" />
+        <activity android:name=".TabbedViewActivity"></activity>
     </application>
 
 </manifest>

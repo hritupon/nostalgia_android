@@ -1,15 +1,14 @@
 package com.hritupon.nostalgia;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -25,31 +24,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class StoriesActivity extends AppCompatActivity {
+public class StoriesActivity extends Fragment {
 
     public static final String STORIES = "Stories";
     private static final int TOTAL_ITEM_EACH_LOAD = 5;
     private int currentPage = 0;
-    private Toolbar mToolbar;
     RecyclerView recyclerViewStories;
     private ProgressBar mProgressBar;
     LinearLayoutManager layoutManager;
     List<Story> storyList = new ArrayList<>();;
     StoriesListAdapter adapter;
     long oldestStoryId;
+    View view;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stories);
-        mToolbar = (Toolbar)findViewById(R.id.stories_activity_toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
-        recyclerViewStories = (RecyclerView)findViewById(R.id.listview_stories);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view =inflater.inflate(R.layout.activity_stories, container, false);
+        mProgressBar = (ProgressBar)view.findViewById(R.id.progressbar);
+        recyclerViewStories = (RecyclerView)view.findViewById(R.id.listview_stories);
         adapter = new StoriesListAdapter(StoriesActivity.this, storyList);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewStories.setLayoutManager(layoutManager);
         recyclerViewStories.setItemAnimator(new DefaultItemAnimator());
         recyclerViewStories.setAdapter(adapter);
@@ -59,37 +54,15 @@ public class StoriesActivity extends AppCompatActivity {
                 loadMoreData();
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         loadData();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.stories_activity_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.home:
-                onBackPressed();
-                break;
-            case R.id.homeAsUp:
-                onBackPressed();
-                break;
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            case R.id.stories_activity_menu_calendar_view:{
-                Toast.makeText(StoriesActivity.this,"Switch to calendar view", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(StoriesActivity.this, CalendarActivity.class));
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
 
     private void loadData() {
         Query query=null;
@@ -108,7 +81,7 @@ public class StoriesActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(!dataSnapshot.hasChildren()){
-                            Toast.makeText(StoriesActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "No more Stories", Toast.LENGTH_SHORT).show();
                             currentPage--;
                         }
                         long currentOldestStoryId=oldestStoryId;
@@ -121,12 +94,12 @@ public class StoriesActivity extends AppCompatActivity {
                             if(tempStories.size()>0)tempStories.remove(tempStories.size()-1);
                         }
                         if(tempStories.size()==0){
-                            Toast.makeText(StoriesActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "No more Stories", Toast.LENGTH_SHORT).show();
                         }else {
                             Collections.reverse(tempStories);
                             oldestStoryId = tempStories.get(tempStories.size()-1).getTimeStamp();
                             if(currentOldestStoryId==oldestStoryId){
-                                Toast.makeText(StoriesActivity.this, "No more Stories", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "No more Stories", Toast.LENGTH_SHORT).show();
                                 //currentPage--;
                             }else {
                                 storyList.addAll(tempStories);
