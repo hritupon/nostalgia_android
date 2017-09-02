@@ -22,10 +22,10 @@ import java.util.List;
 
 public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Story> items;
+    private List<Story> storyList;
     static boolean alternateRow=true;
-    public DateWiseListItemAdapter(List<Story> items) {
-        this.items = items;
+    public DateWiseListItemAdapter(List<Story> storyList) {
+        this.storyList = storyList;
         alternateRow=true;
     }
 
@@ -52,7 +52,7 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return storyList.size();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        Story story = items.get(position);
+        Story story = storyList.get(position);
         DateWiseListItemHolder viewHolder = (DateWiseListItemHolder) holder;
         viewHolder.titleView.setText(story.getDescription());
         viewHolder.timeStampView.setText(getFormattedDate(story.getTimeStamp()));
@@ -82,5 +82,12 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
         Date date = new Date(timeStamp);
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEE dd MMM yyyy hh:mm:ss aaa");
         return simpleDateformat.format(date);
+    }
+
+    public void setFilter(List<Story> newList){
+        storyList.clear();
+        storyList.addAll(newList);
+        notifyDataSetChanged();
+
     }
 }

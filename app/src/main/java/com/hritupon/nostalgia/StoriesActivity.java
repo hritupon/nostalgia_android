@@ -121,4 +121,8 @@ public class StoriesActivity extends Fragment {
         loadData();
         mProgressBar.setVisibility(RecyclerView.VISIBLE);
     }
+
+    public StoriesListAdapter getAdapter(){
+        return this.adapter;
+    }
 }

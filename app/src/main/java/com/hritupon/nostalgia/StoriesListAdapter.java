@@ -84,6 +84,11 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
         return simpleDateformat.format(date);
     }
 
+    public void setFilter(List<Story> newList){
+        storyList.clear();
+        storyList.addAll(newList);
+        notifyDataSetChanged();
 
+    }
 
 }

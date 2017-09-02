@@ -225,4 +225,7 @@ public class CalendarActivity extends Fragment implements DatePickerController {
         loadData();
         mProgressBar.setVisibility(RecyclerView.VISIBLE);
     }
+    public DateWiseListItemAdapter getAdapter(){
+        return this.adapter;
+    }
 }
