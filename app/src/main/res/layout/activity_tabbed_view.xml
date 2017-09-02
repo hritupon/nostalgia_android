@@ -11,29 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        >
-        <include
+
+        <android.support.design.widget.AppBarLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            layout="@layout/tabbed_toolbar_layout"
-            />
-        <android.support.design.widget.TabLayout
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+            <!--<include
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/tabbed_toolbar_layout"
+                />-->
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabLayout"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:theme="@style/ThemeOverlay.AppCompat.Light">
+            </android.support.design.widget.TabLayout>
+        </android.support.design.widget.AppBarLayout>
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabLayout"
-            app:tabMode="fixed"
-            app:tabGravity="fill">
-        </android.support.design.widget.TabLayout>
-    </android.support.design.widget.AppBarLayout>
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/viewPager">
-    </android.support.v4.view.ViewPager>
+            android:layout_height="match_parent"
+            android:id="@+id/viewPager">
+        </android.support.v4.view.ViewPager>
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -42,7 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/floating_button_margin"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
         android:src="@drawable/ic_add_white_24dp"/>
 </RelativeLayout>

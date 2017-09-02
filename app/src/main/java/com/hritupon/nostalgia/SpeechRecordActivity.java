@@ -34,7 +34,7 @@ public class SpeechRecordActivity extends AppCompatActivity {
 
     private FloatingActionButton openMic;
     private Button saveButton;
-    private Button storiesButton;
+    private FloatingActionButton storiesButton;
     private TextView showVoiceText;
     private Toolbar mToolbar;
     FirebaseAuth mAuth;
@@ -42,6 +42,9 @@ public class SpeechRecordActivity extends AppCompatActivity {
     DatabaseReference storiesDbRef;
     private DatabaseService firebaseService;
     private static final String STORIES = "Stories";
+    static boolean databaseInitialized = false;
+    private Boolean exit = false;
+
 
     //private DatabaseService cassandraService;
 
@@ -60,9 +63,12 @@ public class SpeechRecordActivity extends AppCompatActivity {
         openMic = (FloatingActionButton) findViewById(R.id.speakButton);
         showVoiceText = (TextView) findViewById(R.id.showVoiceOutput);
         saveButton = (Button)findViewById(R.id.saveButton);
-        storiesButton = (Button)findViewById(R.id.myStoriesButton);
+        storiesButton = (FloatingActionButton)findViewById(R.id.myStoriesButton);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        if(!databaseInitialized){
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            databaseInitialized=true;
+        }
         storiesDbRef = FirebaseDatabase.getInstance().getReference(STORIES);
         storiesDbRef.keepSynced(true);
         firebaseService = new FirebaseService(storiesDbRef);
@@ -115,6 +121,12 @@ public class SpeechRecordActivity extends AppCompatActivity {
             mAuth.signOut();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+       super.onBackPressed();
+
     }
 
     private void btnToOpenMic(){

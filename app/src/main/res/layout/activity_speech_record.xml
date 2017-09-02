@@ -71,14 +71,24 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <Button
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/myStoriesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/floating_button_margin"
+                android:backgroundTint="@color/colorPrimary"
+                app:fabSize="normal"
+                android:src="@drawable/ic_apps_white_24dp"/>
+            <!--<Button
                 android:id="@+id/myStoriesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="?attr/colorBackgroundFloating"
                 android:text="@string/myStories_button_text"
                 tools:backgroundTint="?attr/colorBackgroundFloating"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"/>-->
         </LinearLayout>
     </LinearLayout>
 

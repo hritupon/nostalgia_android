@@ -2,14 +2,20 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffffffff</color>
     <color name="second_grey">#ff999999</color>
     <color name="card_white">#ffffffff</color>
+<!--
     <color name="card_backgound">#FAFAFAFA</color>
+-->
+    <color name="card_backgound">#FFFFFFFF</color>
     <color name="card_shadow">#8c666666</color>
     <color name="card_date">#aed3f4</color>
     <color name="primary">#2d2d2d</color>
+<!--
     <color name="secondary">#FF4081</color>
+-->
+    <color name="secondary">#FFFFFFFF</color>
     <color name="accent">#33b5e5</color>
     <color name="divider">#CCC</color>
     <color name="icons">#FFF</color>

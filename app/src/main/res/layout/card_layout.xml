@@ -17,11 +17,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="13dp" >
+        android:padding="7dp" >
         <android.support.v7.widget.CardView
             android:layout_width="75dp"
             android:layout_height="70dp"
-            android:elevation="26dp"
+            android:elevation="16dp"
             android:id="@+id/image_view_outer"
             app:cardCornerRadius="10dp"
             android:innerRadius="0dp"
