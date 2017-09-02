@@ -51,9 +51,13 @@
             android:id="@+id/showVoiceOutput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_view_msg"
+            android:hint="@string/text_view_msg"
             android:textSize="31sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:backgroundTint="@color/card_date">
+            <requestFocus />
+        </EditText>
+
 
         <Button
             android:id="@+id/saveButton"
@@ -61,7 +65,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/colorBackgroundFloating"
             android:text="@string/save_button_text"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            />
         <View
             android:layout_width="1dp"
             android:layout_height="0dp"

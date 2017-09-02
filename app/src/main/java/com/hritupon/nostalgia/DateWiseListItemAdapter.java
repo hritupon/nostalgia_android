@@ -84,10 +84,4 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
         return simpleDateformat.format(date);
     }
 
-    public void setFilter(List<Story> newList){
-        storyList.clear();
-        storyList.addAll(newList);
-        notifyDataSetChanged();
-
-    }
 }

@@ -2,10 +2,15 @@ package com.hritupon.nostalgia;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,6 +31,7 @@ import com.hritupon.nostalgia.services.DatabaseService;
 import com.hritupon.nostalgia.services.impl.FirebaseService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static com.hritupon.nostalgia.util.RequestCodes.REQUEST_CODE_SPEECH_OUTPUT;
@@ -44,8 +50,9 @@ public class SpeechRecordActivity extends AppCompatActivity {
     private static final String STORIES = "Stories";
     static boolean databaseInitialized = false;
     private Boolean exit = false;
-
-
+    private SpeechRecognizer mSpeechRecognizer;
+    Intent recognizerIntent;
+    private static final int REQUEST_MICROPHONE=119;
     //private DatabaseService cassandraService;
 
     @Override
@@ -53,6 +60,7 @@ public class SpeechRecordActivity extends AppCompatActivity {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +81,18 @@ public class SpeechRecordActivity extends AppCompatActivity {
         storiesDbRef.keepSynced(true);
         firebaseService = new FirebaseService(storiesDbRef);
 
+        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        recognizerIntent.putExtra("android.speech.extra.DICTATION_MODE", true);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,  this.getPackageName());
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "...Speak now...");
+
+        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        mSpeechRecognizer.setRecognitionListener(new Listener());
+
+
         //cassandraService = new CassandraService();
 
 
@@ -89,7 +109,17 @@ public class SpeechRecordActivity extends AppCompatActivity {
         openMic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnToOpenMic();
+                //btnToOpenMic(recognizerIntent);
+                if (ContextCompat.checkSelfPermission(SpeechRecordActivity.this,
+                        android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(SpeechRecordActivity.this,
+                            new String[]{android.Manifest.permission.RECORD_AUDIO},
+                            REQUEST_MICROPHONE);
+
+                }
+                mSpeechRecognizer.startListening(recognizerIntent);
+
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -129,17 +159,24 @@ public class SpeechRecordActivity extends AppCompatActivity {
 
     }
 
-    private void btnToOpenMic(){
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "...Speak now...");
+    @Override
+    public void onDestroy() {
+        if (mSpeechRecognizer != null)
+        {
+            mSpeechRecognizer.stopListening();
+            mSpeechRecognizer.cancel();
+            mSpeechRecognizer.destroy();
+        }
+        super.onDestroy();
+    }
 
+
+    private void btnToOpenMic(Intent recognizerIntent){
         try{
-            startActivityForResult(intent, REQUEST_CODE_SPEECH_OUTPUT);
+        startActivityForResult(recognizerIntent, REQUEST_CODE_SPEECH_OUTPUT);
         }
         catch (ActivityNotFoundException e){
-            Toast.makeText(this, "Sorry.Try again later...",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Sorry.Try again later...",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -188,4 +225,58 @@ public class SpeechRecordActivity extends AppCompatActivity {
         }
     }
 
+
+    class Listener implements RecognitionListener {
+
+        @Override
+        public void onReadyForSpeech(Bundle params) {
+        }
+        @Override
+        public void onBeginningOfSpeech() {
+
+        }
+        @Override
+        public void onRmsChanged(float rmsdB) {
+        }
+        @Override
+        public void onBufferReceived(byte[] buffer) {
+        }
+        @Override
+        public void onEndOfSpeech() {
+        }
+        @Override
+        public void onError(int error) {
+            //Log.d(TAG, getErrorText(error));
+        }
+
+        @Override
+        public void onResults(Bundle results) {
+            receiveResults(results);
+        }
+        @Override
+        public void onPartialResults(Bundle partialResults) {
+            receiveResults(partialResults);
+        }
+        @Override
+        public void onEvent(int eventType, Bundle params) {
+
+        }
+    };
+
+    private void receiveResults(Bundle results)  {
+
+        if ((results != null) && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION))  {
+            List<String> heard = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            String recognizedSpeech = heard.get(0);
+            String prevRecognizedString = showVoiceText.getText().toString();
+            //showVoiceText.setText(prevRecognizedString+" "+recognizedSpeech);
+            showVoiceText.setText(recognizedSpeech);
+
+
+        }
+
+    }
+
 }
+
+

@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hritupon.nostalgia.models.Story;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TabbedViewActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
@@ -92,6 +93,7 @@ public class TabbedViewActivity extends AppCompatActivity implements SearchView.
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        viewPager.setCurrentItem(0);
         searchText = newText.toLowerCase();
         searchResults= new ArrayList<>();
         Query query = FirebaseDatabase.getInstance().getReference(STORIES).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -105,18 +107,16 @@ public class TabbedViewActivity extends AppCompatActivity implements SearchView.
                 for (DataSnapshot storySnapshot : dataSnapshot.getChildren()) {
                     Story story =storySnapshot.getValue(Story.class);
                     if(story.getDescription().contains(searchText)){
-                        searchResults.add(story);
+                        tempStories.add(story);
                     }
-
                 }
-                if(searchResults.size()==0){
+                if(tempStories.size()==0){
                     Toast.makeText(TabbedViewActivity.this, "No search results found.", Toast.LENGTH_SHORT).show();
                 }else{
+                    Collections.reverse(tempStories);
+                    searchResults.addAll(tempStories);
                     StoriesListAdapter storiesListAdapter = storiesActivity.getAdapter();
                     if(null != storiesListAdapter)storiesListAdapter.setFilter(searchResults);
-
-                    DateWiseListItemAdapter dateWiseListItemAdapter = calendarActivity.getAdapter();
-                    if(null != dateWiseListItemAdapter)dateWiseListItemAdapter.setFilter(searchResults);
                 }
             }
 
