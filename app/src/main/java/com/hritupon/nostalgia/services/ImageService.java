@@ -10,4 +10,5 @@ public interface ImageService {
 
     int getImage(Story story);
     int getImage(Story story, int position);
+    int getAmPmImage(long timeStamp);
 }

@@ -30,34 +30,42 @@
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/speakButton"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_weight="0.12"
-            android:backgroundTint="?attr/colorBackgroundFloating"
-            android:src="@android:drawable/ic_btn_speak_now"
-            android:text="@string/speaker_button_text"
-            tools:background="@android:drawable/ic_btn_speak_now"
-            tools:elevation="24dp"
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/showVoiceOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="start"
+                android:gravity="center_horizontal"
+                android:hint="@string/text_view_msg"
+                android:textSize="31sp"
+                android:textStyle="bold"
+                android:textCursorDrawable="@null"
+                android:backgroundTint="@color/card_date">
+                <requestFocus />
+            </EditText>
+
+           <!-- <Space
+                android:layout_width="10dp"
+                android:layout_height="1dp"/>
+-->
+            <Button
+                android:id="@+id/speakButton"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:drawableLeft="@android:drawable/ic_btn_speak_now"
+                android:background="@drawable/round_button"
+                android:gravity="center_vertical|center_horizontal"
             />
 
-            <Space
-                android:layout_width="1dp"
-                android:layout_height="30dp"/>
-
-        <EditText
-            android:id="@+id/showVoiceOutput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/text_view_msg"
-            android:textSize="31sp"
-            android:textStyle="bold"
-            android:textCursorDrawable="@null"
-            android:backgroundTint="@color/card_date">
-            <requestFocus />
-        </EditText>
+        </RelativeLayout>
 
 
         <Button

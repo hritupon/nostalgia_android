@@ -68,7 +68,7 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         Story story = storyList.get(position);
         DateWiseListItemHolder viewHolder = (DateWiseListItemHolder) holder;
-        viewHolder.titleView.setText(story.getDescription());
+        viewHolder.titleView.setText(limitCharacters(story.getDescription()));
         viewHolder.timeStampView.setText(getFormattedDate(story.getTimeStamp()));
         if(alternateRow){
             viewHolder.rootView.setBackgroundColor(Color.parseColor("#d8e5e5"));
@@ -76,6 +76,15 @@ public class DateWiseListItemAdapter extends RecyclerView.Adapter<RecyclerView.V
             viewHolder.rootView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
         alternateRow=!alternateRow;
+    }
+
+    private CharSequence limitCharacters(String description) {
+        if(null!=description && !description.isEmpty()){
+            if(description.length()>80){
+                return description.substring(0,80)+" ...";
+            }
+        }
+        return description;
     }
 
     private String getFormattedDate(long timeStamp){

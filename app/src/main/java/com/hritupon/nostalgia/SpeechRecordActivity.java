@@ -38,7 +38,7 @@ import static com.hritupon.nostalgia.util.RequestCodes.REQUEST_CODE_SPEECH_OUTPU
 
 public class SpeechRecordActivity extends AppCompatActivity {
 
-    private FloatingActionButton openMic;
+    private Button openMic;
     private Button saveButton;
     private FloatingActionButton storiesButton;
     private TextView showVoiceText;
@@ -68,7 +68,7 @@ public class SpeechRecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_speech_record);
         mToolbar = (Toolbar)findViewById(R.id.speech_record_activity_toolbar);
         setSupportActionBar(mToolbar);
-        openMic = (FloatingActionButton) findViewById(R.id.speakButton);
+        openMic = (Button) findViewById(R.id.speakButton);
         showVoiceText = (TextView) findViewById(R.id.showVoiceOutput);
         saveButton = (Button)findViewById(R.id.saveButton);
         storiesButton = (FloatingActionButton)findViewById(R.id.myStoriesButton);

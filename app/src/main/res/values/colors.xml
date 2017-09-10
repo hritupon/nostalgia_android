@@ -21,4 +21,39 @@
     <color name="icons">#FFF</color>
     <color name="item_background">#FFF</color>
     <color name="light_grey_background">#d8e5e5</color>
+    <color name="INDIANRED">#CD5C5C</color>
+    <color name="LIGHTCORAL">#F08080</color>
+    <color name="SALMON">#FA8072</color>
+    <color name="DARKSALMON">#E9967A</color>
+    <color name="LIGHTSALMON">#FFA07A</color>
+
+
+    <color name="lightskyblue">#87CEFA</color>
+    <color name="lightskyblue1">#B0E2FF</color>
+    <color name="lightskyblue2">#A4D3EE</color>
+    <color name="lightskyblue3">#8DB6CD</color>
+    <color name="lightskyblue4">#607B8B</color>
+    <color name="lightblue5">#ADD8E6</color>
+    <color name="lightblue6">#BFEFFF</color>
+    <color name="lightblue7">#B2DFEE</color>
+    <color name="lightblue8">#9AC0CD</color>
+    <color name="lightblue9">#68838B</color>
+    <color name="powderblue">#B0E0E6</color>
+    <color name="skyblue">#87CEFF</color>
+    <color name="skyblue1">#7EC0EE</color>
+    <color name="skyblue2">#6CA6CD</color>
+    <color name="skyblue3">#4A708B</color>
+    <color name="skyblue4">#87CEEB</color>
+    <color name="deepskyblue">#00BFFF</color>
+    <color name="deepskyblue1">#00B2EE</color>
+    <color name="deepskyblue2">#009ACD</color>
+    <color name="deepskyblue3">#00688B</color>
+    <color name="peacock">#33A1C9</color>
+<!--
+    <color name="azure">#E0EEEE</color>
+-->
+    <color name="StoryHeaderBackground">#9AC0CD</color>
+    <color name="maroon">#0D800000</color>
+    <color name="dark_red">#0D8B0000</color>
+
 </resources>

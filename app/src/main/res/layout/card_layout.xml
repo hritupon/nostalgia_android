@@ -3,25 +3,27 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-    android:layout_margin="7dp"
+    android:layout_marginLeft="7dp"
+    android:layout_marginRight="7dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="3dp"
     card_view:cardBackgroundColor="@color/card_backgound"
 
     card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="3dp"
-    card_view:contentPadding="3dp"
+    card_view:cardElevation="1dp"
+    card_view:contentPadding="0dp"
     android:foreground="?selectableItemBackground"
     android:clickable="true">
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="7dp" >
         <android.support.v7.widget.CardView
             android:layout_width="75dp"
             android:layout_height="70dp"
-            android:elevation="16dp"
+            android:elevation="26dp"
             android:id="@+id/image_view_outer"
             app:cardCornerRadius="10dp"
             android:innerRadius="0dp"
@@ -53,8 +55,116 @@
                         android:id="@+id/textview_description"
                         android:textSize="15sp"/>
             </LinearLayout>
-<!--            android:layout_below="@+id/item_image"-->
+&lt;!&ndash;            android:layout_below="@+id/item_image"&ndash;&gt;
 
 
-    </RelativeLayout>
+    </RelativeLayout>-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0.06"
+        android:background="@drawable/round_border3">
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                >
+                <!--<TextView
+                    android:id="@+id/textview_weekday"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/lightblue9"
+                    android:textStyle="bold"/>-->
+
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/am_pm"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:id="@+id/textview_timestamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/lightblue9"
+                    android:textStyle="bold"
+                    android:gravity="right"
+                    android:paddingLeft="10dp"
+                    />
+            </RelativeLayout>
+
+           <!-- <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center">
+
+                &lt;!&ndash;<ImageView
+                    android:id="@+id/item_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_step" />&ndash;&gt;
+
+            </LinearLayout>-->
+
+            <LinearLayout
+                android:id="@+id/storyCardLinLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/story_background"
+                android:paddingBottom="1dp"
+                android:paddingTop="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textview_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_border"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"/>
+                    <TextView
+                        android:id="@+id/textview_weekday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/lightblue9"
+                        android:textStyle="bold"
+                        android:layout_marginRight="4dp"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="4dp">
+
+                    <TextView
+                        android:id="@+id/textview_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hello there"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>
