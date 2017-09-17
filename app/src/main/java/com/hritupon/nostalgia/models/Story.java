@@ -9,7 +9,7 @@ public class Story {
     String description;
     long timeStamp;
     String userId;
-    String imageId;
+    String imagePath;
 
     public Story(){}
     public Story(String description, long timeStamp, String userId) {
@@ -17,14 +17,17 @@ public class Story {
         this.timeStamp = timeStamp;
         this.userId = userId;
     }
-    public Story(String description, long timeStamp, String userId, String imageId) {
+    public Story(String description, long timeStamp, String userId, String imagePath) {
         this.description = description;
         this.timeStamp = timeStamp;
         this.userId = userId;
-        this.imageId = imageId;
+        this.imagePath = imagePath;
     }
     public String getDescription() {
-        return description;
+        if(description.length()>1) {
+            return description.substring(0, 1).toUpperCase() + description.substring(1);
+        }
+        return description.toUpperCase();
     }
 
     public void setDescription(String description) {
@@ -55,11 +58,11 @@ public class Story {
         this.id = id;
     }
 
-    public String getImageId() {
-        return imageId;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

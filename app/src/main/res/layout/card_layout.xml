@@ -9,108 +9,44 @@
     android:layout_marginTop="2dp"
     android:layout_marginBottom="3dp"
     card_view:cardBackgroundColor="@color/card_backgound"
-
     card_view:cardCornerRadius="5dp"
     card_view:cardElevation="1dp"
     card_view:contentPadding="0dp"
     android:foreground="?selectableItemBackground"
     android:clickable="true">
 
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="7dp" >
-        <android.support.v7.widget.CardView
-            android:layout_width="75dp"
-            android:layout_height="70dp"
-            android:elevation="26dp"
-            android:id="@+id/image_view_outer"
-            app:cardCornerRadius="10dp"
-            android:innerRadius="0dp"
-            android:shape="ring"
-            android:thicknessRatio="1.9"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="8dp">
-            <ImageView
-                android:layout_width="75dp"
-                android:layout_height="70dp"
-                android:id="@+id/item_image"/>
-        </android.support.v7.widget.CardView>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/image_view_outer">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textview_timestamp"
-                        android:layout_alignParentTop="true"
-                        android:textColor="@color/card_date"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textview_description"
-                        android:textSize="15sp"/>
-            </LinearLayout>
-&lt;!&ndash;            android:layout_below="@+id/item_image"&ndash;&gt;
-
-
-    </RelativeLayout>-->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="0.06"
-        android:background="@drawable/round_border3">
+        android:background="@drawable/round_border3"
+        >
 
-            <RelativeLayout
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical"
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:layout_gravity="center"
+                android:background="@drawable/time_background"
                 >
-                <!--<TextView
-                    android:id="@+id/textview_weekday"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/lightblue9"
-                    android:textStyle="bold"/>-->
-
 
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="20dp"
                     android:id="@+id/am_pm"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"/>
                 <TextView
                     android:id="@+id/textview_timestamp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/lightblue9"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
-                    android:gravity="right"
-                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
                     />
-            </RelativeLayout>
-
-           <!-- <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_gravity="center">
-
-                &lt;!&ndash;<ImageView
-                    android:id="@+id/item_image"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_step" />&ndash;&gt;
-
-            </LinearLayout>-->
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/storyCardLinLayout"
@@ -122,8 +58,7 @@
                 android:paddingBottom="1dp"
                 android:paddingTop="1dp"
                 android:paddingLeft="1dp"
-                android:paddingRight="1dp"
-                >
+                android:paddingRight="1dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -137,15 +72,18 @@
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/round_border"
                         android:textStyle="bold"
-                        android:textColor="#FFFFFF"/>
+                        android:textSize="16dp"
+                        android:textColor="@color/StoryHeaderTextBackground"/>
                     <TextView
                         android:id="@+id/textview_weekday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/lightblue9"
+                        android:textColor="@color/StoryHeaderDateTextBackground"
                         android:textStyle="bold"
+                        android:textSize="11dp"
                         android:layout_marginRight="4dp"
                         android:gravity="end"/>
+                    <!--android:textColor="@color/lightblue9"-->
                 </LinearLayout>
 
 
@@ -153,17 +91,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:elevation="4dp">
-
-                    <TextView
-                        android:id="@+id/textview_description"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Hello there"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+                        <ImageView
+                            android:id="@+id/storyImageView"
+                            android:scaleType="centerCrop"
+                            android:layout_width="fill_parent"
+                            android:layout_height="120dp"
+                            android:paddingBottom="5dp"
+                            android:layout_centerVertical="true"
+                            android:adjustViewBounds="true"/>
+                        <TextView
+                            android:id="@+id/textview_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Hello there"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="5dp"
+                            android:layout_gravity="center_horizontal"
                         />
+                    </LinearLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
     </LinearLayout>

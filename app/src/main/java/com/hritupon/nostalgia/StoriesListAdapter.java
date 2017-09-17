@@ -1,6 +1,7 @@
 package com.hritupon.nostalgia;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hritupon.nostalgia.models.Story;
 import com.hritupon.nostalgia.services.ImageService;
 import com.hritupon.nostalgia.services.impl.ImageServiceImpl;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,11 +29,12 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
     private Activity context;
     private List<Story> storyList;
     private ImageService imageService;
-
+    StoriesActivity storiesActivity;
 
     public StoriesListAdapter(StoriesActivity storiesActivity, List<Story> storyList) {
         this.storyList=storyList;
         this.imageService = new ImageServiceImpl();
+        this.storiesActivity=storiesActivity;
     }
 
 
@@ -41,6 +45,7 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
         TextView textViewWeekDay;
         TextView  textViewTimestamp;
         ImageView amPmImageView;
+        ImageView storyImageView;
        // public ImageView itemImage;
 
         public ViewHolder(View itemView) {
@@ -51,6 +56,7 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
             textViewWeekDay = (TextView) itemView.findViewById(R.id.textview_weekday);
             textViewTimestamp = (TextView) itemView.findViewById(R.id.textview_timestamp);
             amPmImageView = (ImageView)itemView.findViewById(R.id.am_pm);
+            storyImageView = (ImageView)itemView.findViewById(R.id.storyImageView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -91,6 +97,21 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
         }
         viewHolder.textViewTimestamp.setText(getFormattedDate(story.getTimeStamp()));
         viewHolder.amPmImageView.setImageResource(imageService.getAmPmImage(story.getTimeStamp()));
+        if(story.getImagePath()!=null && !story.getImagePath().isEmpty()){
+            loadImage(viewHolder.storyImageView,story.getImagePath());
+        }else{
+            viewHolder.storyImageView.setVisibility(View.GONE);
+        }
+    }
+
+    private void loadImage(ImageView imageView, String imagePath) {
+        File file = new File(imagePath);
+        imageView.setVisibility(View.VISIBLE);
+        if(file.exists()){
+            Uri uri = Uri.fromFile(file);
+            Glide.with(storiesActivity).load(uri).into(imageView);
+            //imageView.setImageURI(uri);
+        }
     }
 
     @Override

@@ -26,7 +26,7 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     public int getImage(Story story) {
-        if(null != story.getImageId() && !story.getImageId().isEmpty()){
+        if(null != story.getImagePath() && !story.getImagePath().isEmpty()){
             return getImageId(story);
         }else {
             return guessTheImage(story);
@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     public int getImage(Story story, int position) {
-        if(null != story.getImageId() && !story.getImageId().isEmpty()){
+        if(null != story.getImagePath() && !story.getImagePath().isEmpty()){
             return getImageId(story);
         }else {
             return guessTheImage(story);
@@ -73,15 +73,15 @@ public class ImageServiceImpl implements ImageService{
     }
 
     private int getImageId(Story story){
-        if(story.getImageId().equalsIgnoreCase(WakeupCommand.IMAGE_ID))
+        if(story.getImagePath().equalsIgnoreCase(WakeupCommand.IMAGE_ID))
             return WakeupCommand.getImageId();
-        else if(story.getImageId().equalsIgnoreCase(StartJourneyCommand.IMAGE_ID))
+        else if(story.getImagePath().equalsIgnoreCase(StartJourneyCommand.IMAGE_ID))
             return StartJourneyCommand.getImageId();
-        else if(story.getImageId().equalsIgnoreCase(DinnerCommand.IMAGE_ID))
+        else if(story.getImagePath().equalsIgnoreCase(DinnerCommand.IMAGE_ID))
             return DinnerCommand.getImageId();
-        else if(story.getImageId().equalsIgnoreCase(LunchCommand.IMAGE_ID))
+        else if(story.getImagePath().equalsIgnoreCase(LunchCommand.IMAGE_ID))
             return LunchCommand.getImageId();
-        else if(story.getImageId().equalsIgnoreCase(SleepCommand.IMAGE_ID))
+        else if(story.getImagePath().equalsIgnoreCase(SleepCommand.IMAGE_ID))
             return SleepCommand.getImageId();
         return guessTheImage(story);
     }

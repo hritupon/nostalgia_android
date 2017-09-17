@@ -36,6 +36,9 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.0.4'
     compile 'me.nlmartian.silkcal:library:0.1.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.bumptech.glide:glide:4.1.1'
+
+
 }
 
 
