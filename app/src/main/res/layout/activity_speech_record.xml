@@ -46,7 +46,7 @@
                 android:ellipsize="start"
                 android:gravity="left"
                 android:hint="@string/text_view_msg"
-                android:textSize="31sp"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 android:textCursorDrawable="@null"
                 android:backgroundTint="@color/card_date">

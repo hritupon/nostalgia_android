@@ -53,7 +53,7 @@ public class StartJourneyCommand implements Command{
     }
 
     public static int getImageId(){
-        return R.drawable.cycle;
+        return R.drawable.default_1;
     }
 
     public void execute(){

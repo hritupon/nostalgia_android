@@ -54,7 +54,7 @@ public class WakeupCommand implements Command {
     }
 
     public static int getImageId(){
-        return R.drawable.tea;
+        return R.drawable.default_1;
     }
 
     public void execute(){

@@ -51,10 +51,7 @@ public class SleepCommand implements Command {
     }
 
     public static int getImageId(){
-        int max=10;int min=1;
-        int rand=(int)(Math.random()*(max-min)+min);
-        if(rand%2==0)return R.drawable.sleep_1;
-        else return R.drawable.sleep_2;
+        return R.drawable.default_1;
     }
 
     public void execute(){

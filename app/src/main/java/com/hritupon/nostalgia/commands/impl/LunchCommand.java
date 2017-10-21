@@ -57,12 +57,7 @@ public class LunchCommand implements Command {
 
     public static int getImageId()
     {
-        int max=10;int min=1;
-        int num=(int)(Math.random()*(max-min)+min);
-        if(num%2==0)
-            return R.drawable.lunch;
-        else
-            return R.drawable.lunch_1;
+            return R.drawable.default_1;
     }
 
     public void execute(){

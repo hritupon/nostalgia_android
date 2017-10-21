@@ -17,12 +17,6 @@ import java.util.Date;
  */
 
 public class ImageServiceImpl implements ImageService{
-    private int[] images = {
-            R.drawable.default_1,
-            R.drawable.default_2,
-            R.drawable.default_3,
-            R.drawable.default_4
-    };
 
     @Override
     public int getImage(Story story) {
@@ -89,9 +83,9 @@ public class ImageServiceImpl implements ImageService{
     private int guessTheImage(Story story){
         String description = story.getDescription().toLowerCase();
         if(description.contains("movie") || description.contains("watching") ||description.contains("watch"))
-            return R.drawable.movie_1;
+            return R.drawable.default_1;
         if(description.contains("sleep")||description.contains("morning"))
-            return R.drawable.sleep_1;
+            return R.drawable.default_1;
         else{
             return getRandomDefaultImage();
         }
@@ -99,9 +93,7 @@ public class ImageServiceImpl implements ImageService{
     }
 
     private int getRandomDefaultImage(){
-        int max=5; int min=1;
-        int rand=(int)(Math.random()*(max-min)+min)%4;
-        return images[rand];
+        return R.drawable.default_1;
     }
 
 }

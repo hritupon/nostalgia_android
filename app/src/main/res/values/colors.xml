@@ -56,7 +56,8 @@
     <color name="StoryHeaderBackground">#e5e5e5</color>
     <color name="StoryHeaderTextBackground">#797979</color>
     <color name="StoryHeaderDateTextBackground">#858585</color>
-    <color name="TimeBackground">#383766</color>
+    <color name="TimeBackground">#FFFFFF</color>
+    <color name="TimeTextColor">#37474F</color>
     <color name="maroon">#0D800000</color>
     <color name="dark_red">#0D8B0000</color>
     <color name="purple1">#551a8b</color>

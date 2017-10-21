@@ -56,14 +56,7 @@ public class DinnerCommand implements Command {
     }
 
     public static int getImageId(){
-        int max=10;int min=1;
-        int num=(int)(Math.random()*(max-min)+min);
-        if(num%3==0)
-            return R.drawable.dinner;
-        else if(num%3==1)
-            return R.drawable.dinner_1;
-        else
-            return R.drawable.dinner_2;
+        return R.drawable.default_1;
 
     }
 

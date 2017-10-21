@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Nostalgia</string>
-    <string name="text_view_msg">Your memoir Here!</string>
+    <string name="text_view_msg">Type your memoir here!</string>
     <string name="speaker_button_text">Speak</string>
     <string name="save_button_text">Save</string>
     <string name="logout_button_text">Logout</string>
