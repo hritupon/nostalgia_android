@@ -44,7 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/floating_button_margin"
-        android:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
         android:src="@drawable/ic_add_white_24dp"/>
 </RelativeLayout>
